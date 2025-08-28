@@ -114,6 +114,7 @@ docker-compose.yml
 /data/processed
 /data/processed_v2
 /data/processed_final/
+/data/dataset_for_training/
 
 # Custom datasets from external sources (e.g., Roboflow)
 /data/datasets/
