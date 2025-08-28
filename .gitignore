@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-develop-eggs/
 dist/
 downloads/
 eggs/
@@ -118,6 +117,7 @@ docker-compose.yml
 /data/dataset_for_training/
 /data/dataset_for_training_v2/
 /data/dataset_for_training_final_curated/
+/data/yolo_training_data/
 
 # Custom datasets from external sources (e.g., Roboflow)
 /data/datasets/
