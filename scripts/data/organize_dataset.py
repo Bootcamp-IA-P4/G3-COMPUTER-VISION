@@ -179,7 +179,7 @@ def clean_brand_name(filename):
         r'_\d+',                 # e.g., _12345
         r'\s*\(.*?\)',           # Remove text in parentheses
         r'\s*\[.*?\]',           # Remove text in brackets
-        r'-(logo|vector|download|sign|eps|art|png|jpg|jpeg|black|white|icon|button|racing|team|group|fc|club|sports|auto|motors|company|international|corporation|limited|inc|gmbh|ag|sa|llc|ltd|preview|wordmark|type|design|creative|studio|solutions|systems|technologies|official|original|new|old|v\d+)', # Removed \010
+        r'-(logo|vector|download|sign|eps|art|png|jpg|jpeg|black|white|icon|button|racing|team|group|fc|club|sports|auto|motors|company|international|corporation|limited|inc|gmbh|ag|sa|llc|ltd|preview|wordmark|type|design|creative|studio|solutions|systems|technologies|official|original|new|old|v\d+)', 
     ]
     for pattern in junk_patterns:
         name = re.sub(pattern, '', name, flags=re.IGNORECASE)
