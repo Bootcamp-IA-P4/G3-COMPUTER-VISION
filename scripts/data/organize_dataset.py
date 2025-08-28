@@ -156,20 +156,47 @@ def clean_brand_name(filename):
     """Cleans a filename to extract a standardized brand name using a refined pipeline."""
     
     name = Path(filename).stem.lower()
+    original_name = name # Keep original for fallback
+
+    # 1. Initial cleanup: replace common separators with hyphens
     name = re.sub(r'[\s_.]+', '-', name)
 
+    # 2. Try to match exact canonical names first
     for keyword, canonical_name in BRAND_MAP.items():
-        if keyword in name:
+        if name == keyword:
             return canonical_name
 
-    # Fallback for names not in the map
-    name = re.sub(r'-\d{4,}.*$', '', name) # Remove years and everything after
-    name = re.sub(r'-(logo|vector|download|sign|eps|art|png|jpg|jpeg|black|white|icon|button|racing|team|group|fc|club|sports|auto|motors|company|international|corporation|limited|inc|gmbh|ag|sa|llc|ltd|preview|wordmark|type|design|creative|studio|solutions|systems|technologies)$', '', name, flags=re.IGNORECASE)
-    
+    # 3. Try to match keywords at the beginning of the name
+    for keyword, canonical_name in BRAND_MAP.items():
+        if name.startswith(keyword + '-'): # e.g., 'adidas-originals' matches 'adidas-'
+            return canonical_name
+
+    # 4. More aggressive cleaning for names not yet matched
+    # Remove common junk words and patterns that might interfere with matching
+    junk_patterns = [
+        r'-\d{4}-\d{4}\b',       # e.g., -2000-2015
+        r'-\d{4}\b',             # e.g., -2012
+        r'_\d+',                 # e.g., _12345
+        r'\s*\(.*?\)',           # Remove text in parentheses
+        r'\s*\[.*?\]',           # Remove text in brackets
+        r'-(logo|vector|download|sign|eps|art|png|jpg|jpeg|black|white|icon|button|racing|team|group|fc|club|sports|auto|motors|company|international|corporation|limited|inc|gmbh|ag|sa|llc|ltd|preview|wordmark|type|design|creative|studio|solutions|systems|technologies|official|original|new|old|v1|v2|v3|v4|v5|v6|v7|v8|v9|v10|v11|v12|v13|v14|v15|v16|v17|v18|v19|v20|v21|v22|v23|v24|v25|v26|v27|v28|v29|v30|v31|v32|v33|v34|v35|v36|v37|v38|v39|v40|v41|v42|v43|v44|v45|v46|v47|v48|v49|v50|v51|v52|v53|v54|v55|v56|v57|v58|v59|v60|v61|v62|v63|v64|v65|v66|v67|v68|v69|v70|v71|v72|v73|v74|v75|v76|v77|v78|v79|v80|v81|v82|v83|v84|v85|v86|v87|v88|v89|v90|v91|v92|v93|v94|v95|v96|v97|v98|v99|v100)', '', flags=re.IGNORECASE)
+    ]
+    for pattern in junk_patterns:
+        name = re.sub(pattern, '', name)
+
+    # Re-apply hyphenation and strip extra hyphens
+    name = re.sub(r'[\s_.]+', '-', name)
     name = name.strip('-')
     name = re.sub(r'-+', '-', name)
 
-    if not name or len(name) < 3 or re.search(r'[a-f0-9]{8,}', name) or name.isdigit():
+    # 5. Final check against BRAND_MAP after aggressive cleaning
+    for keyword, canonical_name in BRAND_MAP.items():
+        if name == keyword or name.startswith(keyword + '-'):
+            return canonical_name
+
+    # 6. Fallback for names that still don't match a canonical brand
+    # If the name is too short, purely numeric, or looks like a hash, discard it.
+    if not name or len(name) < 3 or name.isdigit() or re.search(r'^[a-f0-9]{8,}$', name):
         return None
         
     return name
@@ -233,6 +260,6 @@ if __name__ == "__main__":
     BASE_DIR = Path(__file__).resolve().parent.parent.parent
     
     SOURCE_DATASET_DIR = BASE_DIR / "data" / "dataset_yolo"
-    PROCESSED_DATASET_DIR_FINAL = BASE_DIR / "data" / "processed_final"
+    PROCESSED_DATASET_DIR_V2 = BASE_DIR / "data" / "dataset_for_training_v2"
     
-    organize_dataset(SOURCE_DATASET_DIR, PROCESSED_DATASET_DIR_FINAL)
+    organize_dataset(SOURCE_DATASET_DIR, PROCESSED_DATASET_DIR_V2)
