@@ -168,7 +168,7 @@ def clean_brand_name(filename):
 
     # 3. Try to match keywords at the beginning of the name
     for keyword, canonical_name in BRAND_MAP.items():
-        if name.startswith(keyword + '-') # e.g., 'adidas-originals' matches 'adidas-'
+        if name.startswith(keyword + '-'): # e.g., 'adidas-originals' matches 'adidas-'
             return canonical_name
 
     # 4. More aggressive cleaning for names not yet matched
@@ -191,7 +191,7 @@ def clean_brand_name(filename):
 
     # 5. Final check against BRAND_MAP after aggressive cleaning
     for keyword, canonical_name in BRAND_MAP.items():
-        if name == keyword or name.startswith(keyword + '-')
+        if name == keyword or name.startswith(keyword + '-'):
             return canonical_name
 
     # 6. Fallback for names that still don't match a canonical brand
