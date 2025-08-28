@@ -1,0 +1,48 @@
+path: /home/juandomingo/factoriaf5/mod03-projs/G3-COMPUTER-VISION/data/yolo_training_data
+train: train/images
+val: val/images
+test: test/images
+names:
+  0: adidas
+  1: alfa-romeo
+  2: amazon
+  3: apple
+  4: audi
+  5: boca-juniors
+  6: budweiser
+  7: chevrolet
+  8: coca-cola
+  9: continental
+  10: converse
+  11: dodge
+  12: ferrari
+  13: fiat
+  14: ford
+  15: google
+  16: honda
+  17: hp
+  18: hyundai
+  19: intel
+  20: kfc
+  21: mazda
+  22: mercedes-benz
+  23: meta
+  24: microsoft
+  25: mitsubishi
+  26: nestle
+  27: nike
+  28: nintendo
+  29: nissan
+  30: opel
+  31: peugeot
+  32: pirelli
+  33: puma
+  34: reebok
+  35: renault
+  36: samsung
+  37: skoda
+  38: sony
+  39: suzuki
+  40: toyota
+  41: volkswagen
+  42: volvo
