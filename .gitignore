@@ -116,6 +116,12 @@ docker-compose.yml
 # Custom datasets from external sources (e.g., Roboflow)
 /data/datasets/
 
+# dataset_yolo
+/data/dataset_yolo/
+/data/dataset_yolo/images
+/data/dataset_yolo/labels
+
+
 # ML model training runs and results
 /runs/
 /BrandLogoDetector/
