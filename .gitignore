@@ -112,6 +112,8 @@ docker-compose.yml
 # Data files
 /data/videos
 /data/processed
+/data/processed_v2
+/data/processed_final/
 
 # Custom datasets from external sources (e.g., Roboflow)
 /data/datasets/
