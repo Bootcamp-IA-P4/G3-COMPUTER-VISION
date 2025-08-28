@@ -2,6 +2,7 @@ import os
 import shutil
 import re
 from pathlib import Path
+import yaml
 
 # MAPA DE MARCAS CANÓNICAS REFINADO
 # El orden es importante: las reglas más específicas (ej. 'mercedes-benz') deben ir antes que las más generales (ej. 'mercedes').
@@ -168,7 +169,7 @@ def clean_brand_name(filename):
 
     # 3. Try to match keywords at the beginning of the name
     for keyword, canonical_name in BRAND_MAP.items():
-        if name.startswith(keyword + '-'): # e.g., 'adidas-originals' matches 'adidas-'
+        if name.startswith(keyword + '-') : 
             return canonical_name
 
     # 4. More aggressive cleaning for names not yet matched
@@ -191,7 +192,7 @@ def clean_brand_name(filename):
 
     # 5. Final check against BRAND_MAP after aggressive cleaning
     for keyword, canonical_name in BRAND_MAP.items():
-        if name == keyword or name.startswith(keyword + '-'):
+        if name == keyword or name.startswith(keyword + '-') :
             return canonical_name
 
     # 6. Fallback for names that still don't match a canonical brand
@@ -201,10 +202,10 @@ def clean_brand_name(filename):
         
     return name
 
-def organize_dataset(source_dir, processed_dir):
+def organize_dataset(source_dir, processed_dir, threshold=0):
     """
     Organizes images and labels from a source directory into a new
-    directory structured by brand name.
+    directory structured by brand name, applying a threshold for image count.
     """
     source_images_dir = Path(source_dir) / "images"
     source_labels_dir = Path(source_dir) / "labels"
@@ -214,52 +215,85 @@ def organize_dataset(source_dir, processed_dir):
         print("Error: Source directories not found.")
         return
 
+    # Temporary dictionary to hold counts before filtering
+    temp_brand_data = {}
+
+    print(f"Starting initial scan and cleaning...")
+    image_files = list(source_images_dir.glob("*.jpg")) + list(source_images_dir.glob("*.png"))
+    
+    for image_path in image_files:
+        brand_name = clean_brand_name(image_path.name)
+        
+        if brand_name:
+            if brand_name not in temp_brand_data:
+                temp_brand_data[brand_name] = []
+            temp_brand_data[brand_name].append(image_path)
+
+    # Filter brands by threshold
+    filtered_brands = {brand: paths for brand, paths in temp_brand_data.items() if len(paths) >= threshold}
+
+    if not filtered_brands:
+        print(f"No brands found with at least {threshold} images after cleaning. Nothing to do.")
+        return
+
+    # Clear and create output directory
     if output_dir.exists():
         print(f"Clearing existing directory: {output_dir}")
         shutil.rmtree(output_dir)
     output_dir.mkdir(exist_ok=True)
     
-    print(f"Starting final dataset organization...")
-    print(f"Destination: {output_dir}")
+    print(f"Copying filtered images to {output_dir}...")
 
-    image_files = list(source_images_dir.glob("*.jpg")) + list(source_images_dir.glob("*.png"))
     processed_count = 0
-    skipped_count = 0
-    brand_folders = set()
+    skipped_count = len(image_files) - sum(len(paths) for paths in filtered_brands.values())
+    brand_folders_created = set()
+    class_names = sorted(list(filtered_brands.keys())) # For data.yaml
 
-    for image_path in image_files:
-        brand_name = clean_brand_name(image_path.name)
-        
-        if not brand_name:
-            skipped_count += 1
-            continue
-            
+    for brand_name in class_names:
+        brand_paths = filtered_brands[brand_name]
         brand_dir = output_dir / brand_name
         brand_dir.mkdir(exist_ok=True)
-        brand_folders.add(brand_name)
-        
-        dest_image_path = brand_dir / image_path.name
-        
-        label_filename = image_path.stem + ".txt"
-        source_label_path = source_labels_dir / label_filename
-        dest_label_path = brand_dir / label_filename
-        
-        shutil.copy(image_path, dest_image_path)
-        processed_count += 1
-        
-        if source_label_path.exists():
-            shutil.copy(source_label_path, dest_label_path)
+        brand_folders_created.add(brand_name)
+
+        for image_path in brand_paths:
+            dest_image_path = brand_dir / image_path.name
+            label_filename = image_path.stem + ".txt"
+            source_label_path = source_labels_dir / label_filename
+            dest_label_path = brand_dir / label_filename
+            
+            shutil.copy(image_path, dest_image_path)
+            processed_count += 1
+            
+            if source_label_path.exists():
+                shutil.copy(source_label_path, dest_label_path)
 
     print(f"\nOrganization complete.")
     print(f"Processed images: {processed_count}")
-    print(f"Skipped images: {skipped_count}")
-    print(f"Unique brands found: {len(brand_folders)}")
+    print(f"Skipped images (due to cleaning or threshold): {skipped_count}")
+    print(f"Unique brands found (meeting threshold): {len(brand_folders_created)}")
     print(f"Processed files are in {output_dir}")
 
+    # Generate data.yaml file
+    yaml_data = {
+        'path': f'../{output_dir.name}',  # Relative path to the dataset folder
+        'train': './', # Assuming all images are for training for now
+        'val': './',   # Assuming all images are for validation for now
+        'names': {i: name for i, name in enumerate(class_names)}
+    }
+
+    yaml_file_path = output_dir.parent / f'{output_dir.name}.yaml' # Place yaml next to the folder
+    try:
+        with open(yaml_file_path, 'w', encoding='utf-8') as f:
+            yaml.dump(yaml_data, f, allow_unicode=True, sort_keys=False)
+        print(f"Successfully generated data.yaml at: {yaml_file_path}")
+    except IOError as e:
+        print(f"Error writing YAML file: {e}")
+
 if __name__ == "__main__":
+    THRESHOLD = 10 # Set the desired threshold here
     BASE_DIR = Path(__file__).resolve().parent.parent.parent
     
     SOURCE_DATASET_DIR = BASE_DIR / "data" / "dataset_yolo"
-    PROCESSED_DATASET_DIR_V2 = BASE_DIR / "data" / "dataset_for_training_v2"
+    PROCESSED_DATASET_DIR_V2 = BASE_DIR / "data" / "dataset_for_training_final_curated"
     
-    organize_dataset(SOURCE_DATASET_DIR, PROCESSED_DATASET_DIR_V2)
+    organize_dataset(SOURCE_DATASET_DIR, PROCESSED_DATASET_DIR_V2, THRESHOLD)
