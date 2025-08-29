@@ -112,19 +112,14 @@ docker-compose.yml
 #=========================================
 # Project Data, Models, and Results
 #=========================================
-# Ignore the contents of these folders...
-/training_results/*
-/models/*
-/runs/*
-/data/*
+# Ignore all large data files and results
+/data/
+/results/
+/models/
+/runs/
 
-# ...but make exceptions for specific configuration files or placeholders.
-# Un-ignore the datasets folder so we can look inside it.
-!/data/datasets/
-# Ignore everything inside the datasets folder...
-/data/datasets/*
-# ...except for the .yaml configuration files.
+# EXCEPT for specific YAML files within data/datasets/
 !/data/datasets/**/*.yaml
 
-# Keep .gitkeep files everywhere so we can have empty tracked directories
+# Keep .gitkeep files everywhere
 !**/.gitkeep
