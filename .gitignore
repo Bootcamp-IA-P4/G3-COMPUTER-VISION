@@ -1,4 +1,3 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -112,9 +111,21 @@ docker-compose.yml
 # Data files
 /data/videos
 /data/processed
+/data/processed_v2
+/data/processed_final/
+/data/dataset_for_training/
+/data/dataset_for_training_v2/
+/data/dataset_for_training_final_curated/
+/data/yolo_training_data/
 
 # Custom datasets from external sources (e.g., Roboflow)
 /data/datasets/
+
+# dataset_yolo
+/data/dataset_yolo/
+/data/dataset_yolo/images
+/data/dataset_yolo/labels
+
 
 # ML model training runs and results
 /runs/
