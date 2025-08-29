@@ -119,12 +119,12 @@ docker-compose.yml
 /data/*
 
 # ...but make exceptions for specific configuration files or placeholders.
-# Un-ignore the curated data folder so we can look inside it.
-!/data/curated/
-# Ignore everything inside the curated folder...
-/data/curated/*
+# Un-ignore the datasets folder so we can look inside it.
+!/data/datasets/
+# Ignore everything inside the datasets folder...
+/data/datasets/*
 # ...except for the .yaml configuration files.
-!/data/curated/**/*.yaml
+!/data/datasets/**/*.yaml
 
 # Keep .gitkeep files everywhere so we can have empty tracked directories
 !**/.gitkeep
