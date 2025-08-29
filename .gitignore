@@ -113,10 +113,10 @@ docker-compose.yml
 # Project Data, Models, and Results
 #=========================================
 # Ignore all large data files and results
-/data/
-/results/
-/models/
-/runs/
+/data/*
+/training_results/*
+/models/*
+/runs/*
 
 # EXCEPT for specific YAML files within data/datasets/
 !/data/datasets/**/*.yaml
