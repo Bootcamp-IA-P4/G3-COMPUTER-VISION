@@ -118,7 +118,11 @@ docker-compose.yml
 /models/*
 /runs/*
 
-# EXCEPT for specific YAML files within data/datasets/
+# Explicitly un-ignore the datasets directory itself
+!/data/datasets/
+
+# Now, ignore everything inside datasets, EXCEPT for YAML files
+/data/datasets/*
 !/data/datasets/**/*.yaml
 
 # Keep .gitkeep files everywhere
