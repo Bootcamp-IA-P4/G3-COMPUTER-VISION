@@ -89,7 +89,9 @@ BRAND_MAP = {
     "google": "google", "android": "google", "chrome": "google", "gmail": "google", "youtube": "google",
     "microsoft": "microsoft", "windows": "microsoft", "xbox": "microsoft", "office": "microsoft", "azure": "microsoft",
     "amazon": "amazon", "aws": "amazon", "kindle": "amazon", "alexa": "amazon",
-    "facebook": "meta", "meta": "meta", "instagram": "meta", "whatsapp": "meta",
+    "facebook": "meta", "meta": "meta",
+    "instagram": "instagram", # Separated from Meta
+    "whatsapp": "whatsapp",   # Separated from Meta
     "samsung": "samsung",
     "sony": "sony", "playstation": "sony",
     "intel": "intel",
@@ -153,12 +155,27 @@ BRAND_MAP = {
     "bitcoin": "bitcoin",
 }
 
-def clean_brand_name(filename):
-    """Cleans a filename to extract a standardized brand name using a refined pipeline."""
+def clean_brand_name(image_path_obj):
+    """Cleans a filename and its parent directory name to extract a standardized brand name."""
     
-    name = Path(filename).stem.lower()
-    original_name = name # Keep original for fallback
+    # Try to clean from parent directory name first
+    parent_name = image_path_obj.parent.name.lower()
+    cleaned_parent_name = _apply_cleaning_rules(parent_name)
+    if cleaned_parent_name and cleaned_parent_name in BRAND_MAP.values(): # Check if it maps to a canonical brand
+        return cleaned_parent_name
 
+    # Fallback to filename if parent name doesn't yield a canonical brand
+    file_name = image_path_obj.stem.lower()
+    cleaned_file_name = _apply_cleaning_rules(file_name)
+    if cleaned_file_name:
+        return cleaned_file_name
+        
+    return None
+
+def _apply_cleaning_rules(name_str):
+    """Applies cleaning rules to a given string (filename or folder name)."""
+    name = name_str
+    
     # 1. Initial cleanup: replace common separators with hyphens
     name = re.sub(r'[\s_.]+', '-', name)
 
@@ -169,11 +186,10 @@ def clean_brand_name(filename):
 
     # 3. Try to match keywords at the beginning of the name
     for keyword, canonical_name in BRAND_MAP.items():
-        if name.startswith(keyword + '-') : 
+        if name.startswith(keyword + '-') :
             return canonical_name
 
     # 4. More aggressive cleaning for names not yet matched
-    # Remove common junk words and patterns that might interfere with matching
     junk_patterns = [
         r'-\d{4}-\d{4}\b',       # e.g., -2000-2015
         r'-\d{4}\b',             # e.g., -2012
@@ -219,10 +235,10 @@ def organize_dataset(source_dir, processed_dir, threshold=0):
     temp_brand_data = {}
 
     print(f"Starting initial scan and cleaning...")
-    image_files = list(source_images_dir.glob("*.jpg")) + list(source_images_dir.glob("*.png"))
+    image_files = list(source_images_dir.glob("**/*.jpg")) + list(source_images_dir.glob("**/*.png"))
     
     for image_path in image_files:
-        brand_name = clean_brand_name(image_path.name)
+        brand_name = clean_brand_name(image_path)
         
         if brand_name:
             if brand_name not in temp_brand_data:
