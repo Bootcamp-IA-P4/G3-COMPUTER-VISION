@@ -8,7 +8,7 @@ import yaml
 # El orden es importante: las reglas más específicas (ej. 'mercedes-benz') deben ir antes que las más generales (ej. 'mercedes').
 BRAND_MAP = {
     # Marcas de coches y relacionadas
-    "mercedes-benz": "mercedes-benz", "mercedes": "mercedes-benz", "amg": "mercedes-benz",
+    "mercedes-benz": "mercedes-benz", "mercedes": "mercedes-benz",
     "alfa-romeo": "alfa-romeo",
     "aston-martin": "aston-martin",
     "audi": "audi",
@@ -49,7 +49,7 @@ BRAND_MAP = {
     "subaru": "subaru",
     "suzuki": "suzuki",
     "toyota": "toyota",
-    "volkswagen": "volkswagen", "vw": "volkswagen",
+    "volkswagen": "volkswagen",
     "volvo": "volvo",
 
     # Ropa y Lujo
