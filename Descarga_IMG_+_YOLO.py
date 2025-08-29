@@ -17,9 +17,20 @@ data = pd.read_excel(file_path, sheet_name="Sheet1")
 output_dir = Path("dataset_logos")
 output_dir.mkdir(parents=True, exist_ok=True)
 
-# Carpetas YOLO
-yolo_images = Path("dataset_yolo/images")
-yolo_labels = Path("dataset_yolo/labels")
+# Modificar la estructura de carpetas YOLO
+def create_brand_folders(brands, base_path):
+    for brand in brands:
+        brand_folder = base_path / brand
+        brand_folder.mkdir(parents=True, exist_ok=True)
+    return base_path
+
+# Modificar la parte de las carpetas YOLO
+yolo_base = Path("dataset_yolo")
+yolo_images = yolo_base / "images"
+yolo_labels = yolo_base / "labels"
+
+# Crear carpetas base
+yolo_base.mkdir(parents=True, exist_ok=True)
 yolo_images.mkdir(parents=True, exist_ok=True)
 yolo_labels.mkdir(parents=True, exist_ok=True)
 
@@ -27,7 +38,33 @@ yolo_labels.mkdir(parents=True, exist_ok=True)
 def clean_brand_name(name):
     if pd.isna(name):
         return "Desconocido"
-    return re.sub(r"S\.Net.*", "", str(name)).strip()
+    
+    # Convertir a string y limpiar espacios
+    name = str(name).strip()
+    
+    # Palabras a remover
+    remove_words = [
+        'Vector', 'Download', 'Eps', 'Black', 'Logo', 'Brand', 
+        'Preview', 'Current', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
+    ]
+    
+    # Remover números al inicio
+    name = re.sub(r'^\d+\s*', '', name)
+    
+    # Remover palabras innecesarias
+    for word in remove_words:
+        name = re.sub(rf'\s*{word}\s*', ' ', name, flags=re.IGNORECASE)
+    
+    # Limpiar caracteres especiales
+    name = re.sub(r'[^\w\s-]', '', name)
+    
+    # Remover espacios múltiples
+    name = re.sub(r'\s+', ' ', name)
+    
+    # Capitalizar cada palabra
+    name = ' '.join(word.capitalize() for word in name.split())
+    
+    return name.strip()
 
 # Crear lista de clases
 brands = sorted(set(clean_brand_name(b) for b in data["Nombre de Marca"]))
@@ -51,8 +88,17 @@ for idx, row in tqdm(data.iterrows(), total=len(data)):
             file_ext = url.split(".")[-1].lower()
             if file_ext not in ["jpg", "jpeg", "png", "webp"]:
                 file_ext = "jpg"
+                
+            # Crear nombre de archivo y rutas
             img_name = f"{brand}_{idx}.{file_ext}"
-            img_path = yolo_images / img_name
+            brand_images_dir = yolo_images / brand
+            brand_labels_dir = yolo_labels / brand
+            
+            # Crear carpetas si no existen
+            brand_images_dir.mkdir(parents=True, exist_ok=True)
+            brand_labels_dir.mkdir(parents=True, exist_ok=True)
+            
+            img_path = brand_images_dir / img_name
 
             # Guardar imagen
             with open(img_path, "wb") as f:
@@ -63,10 +109,11 @@ for idx, row in tqdm(data.iterrows(), total=len(data)):
                 w, h = img.size
 
             # YOLO format: class_id cx cy w h (normalizado 0-1)
-            cx, cy = 0.5, 0.5  # logo centrado
-            bw, bh = 1.0, 1.0  # caja cubre toda la imagen
+            cx, cy = 0.5, 0.5
+            bw, bh = 1.0, 1.0
 
-            label_path = yolo_labels / (img_name.replace(file_ext, "txt"))
+            # Guardar etiqueta en la subcarpeta correspondiente
+            label_path = brand_labels_dir / (img_name.replace(file_ext, "txt"))
             with open(label_path, "w") as f:
                 f.write(f"{class_id} {cx} {cy} {bw} {bh}\n")
 
