@@ -89,7 +89,8 @@ BRAND_MAP = {
     "google": "google", "android": "google", "chrome": "google", "gmail": "google", "youtube": "google",
     "microsoft": "microsoft", "windows": "microsoft", "xbox": "microsoft", "office": "microsoft", "azure": "microsoft",
     "amazon": "amazon", "aws": "amazon", "kindle": "amazon", "alexa": "amazon",
-    "facebook": "meta", "meta": "meta",
+    "facebook": "facebook", # Separated from Meta
+    "meta": "meta",
     "instagram": "instagram", # Separated from Meta
     "whatsapp": "whatsapp",   # Separated from Meta
     "samsung": "samsung",
