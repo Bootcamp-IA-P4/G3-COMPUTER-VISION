@@ -109,29 +109,22 @@ docker-compose.yml
 # Static files
 /static
 
-# Data files
-/data/videos
-/data/processed
-/data/processed_v2
-/data/processed_final/
-/data/dataset_for_training/
-/data/dataset_for_training_v2/
-/data/dataset_for_training_final_curated/
-/data/yolo_training_data/
-/data/dataset_yolo_v2/
+#=========================================
+# Project Data, Models, and Results
+#=========================================
+# Ignore the contents of these folders...
+/training_results/*
+/models/*
+/runs/*
+/data/*
 
-# Custom datasets from external sources (e.g., Roboflow)
-/data/datasets/
+# ...but make exceptions for specific configuration files or placeholders.
+# Un-ignore the curated data folder so we can look inside it.
+!/data/curated/
+# Ignore everything inside the curated folder...
+/data/curated/*
+# ...except for the .yaml configuration files.
+!/data/curated/**/*.yaml
 
-# dataset_yolo
-/data/dataset_yolo/
-/data/dataset_yolo/images
-/data/dataset_yolo/labels
-
-
-# ML model training runs and results
-/runs/
-/BrandLogoDetector/
-
-# Model files
-/models/
+# Keep .gitkeep files everywhere so we can have empty tracked directories
+!**/.gitkeep
