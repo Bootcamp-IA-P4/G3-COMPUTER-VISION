@@ -1,0 +1,13 @@
+[global]
+developmentMode = false
+
+[server]
+port = 8501
+enableCORS = false
+maxUploadSize = 500
+
+[theme]
+primaryColor = "#667eea"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"

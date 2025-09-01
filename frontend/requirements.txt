@@ -1,0 +1,19 @@
+# Streamlit Frontend Requirements - Compatibles con Python 3.12 y MacOS M1/M2
+
+# Core dependencies
+streamlit>=1.28.0
+requests>=2.25.0
+pandas>=2.0.0
+numpy>=1.25.0
+plotly>=5.15.0
+Pillow>=10.0.0
+
+# OpenCV para procesamiento de video (versión ligera)
+opencv-python-headless>=4.8.0
+
+# Para manejo de archivos multipart
+python-multipart>=0.0.6
+
+# Dependencias adicionales útiles
+python-dateutil>=2.8.0
+typing-extensions>=4.0.0
