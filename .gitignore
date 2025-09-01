@@ -127,4 +127,7 @@ docker-compose.yml
 
 # Keep .gitkeep files everywhere
 !**/.gitkeep
-Dataset_final/
+
+# Explicitly un-ignore specific final datasets
+/Dataset_final/
+/data/datasets/curated/Dataset_final/
