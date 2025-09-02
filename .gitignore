@@ -133,3 +133,4 @@ docker-compose.yml
 /data/datasets/curated/Dataset_final/
 Dataset_final.tar.gz
 reports/
+/data/datasets/curated/dataset_v1_yolov8m
