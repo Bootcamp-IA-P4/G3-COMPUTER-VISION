@@ -124,3 +124,7 @@ docker-compose.yml
 /models/
 
 /Prueba_1
+/BrandLogoDetection.v6i.yolov8
+/Dataset_final_final
+/logo_detect_v3.v1i.yolov8
+/merged_dataset
