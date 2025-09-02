@@ -118,6 +118,7 @@ docker-compose.yml
 /models/*
 /models/yolov8n.pt
 /models/yolov8m.pt
+/models/yolov8s.pt
 /runs/*
 
 # Explicitly un-ignore the datasets directory itself
@@ -137,3 +138,5 @@ reports/
 
 # Ignore compressed dataset archives
 data/_archive/
+# Ignore models
+*.pt

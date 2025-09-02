@@ -15,7 +15,7 @@ def main():
     # Parámetros de entrenamiento
     epochs = 80
     project_folder = 'training_results'
-    run_name = 'yolov8m_reduced_b4_w2_img416_80_epochs'
+    run_name = 'yolov8m_reduced_b2_w2_img416_80_epochs'
 
     # --- Fin de la Configuración ---
 
@@ -36,7 +36,7 @@ def main():
         save_hybrid=True,
         plots=True,
         # --- Optimizaciones para reducir consumo de memoria ---
-        batch=4,
+        batch=2,
         workers=2,
         imgsz=416
     )
