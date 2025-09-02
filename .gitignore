@@ -116,6 +116,8 @@ docker-compose.yml
 /data/*
 /training_results/*
 /models/*
+/models/yolov8n.pt
+/models/yolov8m.pt
 /runs/*
 
 # Explicitly un-ignore the datasets directory itself
@@ -134,3 +136,6 @@ docker-compose.yml
 Dataset_final.tar.gz
 reports/
 /data/datasets/curated/dataset_v1_yolov8m
+/data/datasets/curated/dataset_v1_yolov8m_reduced/
+# Ignore compressed dataset archives
+data/_archive/
