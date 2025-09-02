@@ -133,9 +133,7 @@ docker-compose.yml
 # Explicitly un-ignore specific final datasets
 /Dataset_final/
 /data/datasets/curated/Dataset_final/
-Dataset_final.tar.gz
 reports/
-/data/datasets/curated/dataset_v1_yolov8m
-/data/datasets/curated/dataset_v1_yolov8m_reduced/
+
 # Ignore compressed dataset archives
 data/_archive/
