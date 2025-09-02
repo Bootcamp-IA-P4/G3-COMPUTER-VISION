@@ -7,7 +7,7 @@ echo "Iniciando el entrenamiento del modelo YOLOv8m con el dataset completo..."
 
 yolo detect train \
     model=yolov8m.pt \
-    data='/home/juandomingo/factoriaf5/mod03-projs/G3-COMPUTER-VISION/data/datasets/curated/dataset_v1_yolov8m/data.yaml' \
+    data='data/datasets/curated/dataset_v1_yolov8/data.yaml' \
     epochs=50 \
     project='training_results' \
     name='yolov8m_full_dataset_50_epochs' \

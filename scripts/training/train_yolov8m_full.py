@@ -8,7 +8,7 @@ def main():
     model_name = 'yolov8m.pt'
 
     # Ruta relativa al archivo de configuración del dataset (data.yaml) desde la raíz del proyecto.
-    dataset_yaml_path = 'data/datasets/curated/dataset_v1_yolov8m/data.yaml'
+    dataset_yaml_path = 'data/datasets/curated/dataset_v1_yolov8/data.yaml'
 
     # Parámetros de entrenamiento
     epochs = 80

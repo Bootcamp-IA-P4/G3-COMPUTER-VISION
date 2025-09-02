@@ -10,7 +10,7 @@ def main():
     # Ruta al archivo de configuración del dataset (data.yaml).
     # dataset_yaml_path = '/home/juandomingo/factoriaf5/mod03-projs/G3-COMPUTER-VISION/data/datasets/curated/dataset_v1_yolov8m_reduced/data.yaml'
     # Ruta relativa al archivo de configuración del dataset (data.yaml) desde la raíz del proyecto.                    │
-    dataset_yaml_path = 'data/datasets/curated/dataset_v1_yolov8m/data.yaml'   
+    dataset_yaml_path = 'data/datasets/curated/dataset_v1_yolov8_reduced/data.yaml'   
     
     # Parámetros de entrenamiento
     epochs = 80
