@@ -2,7 +2,7 @@ import os
 from collections import defaultdict
 
 # --- Configuration ---
-DATASET_DIR = 'data/datasets/curated/dataset_v1_yolov8m'
+DATASET_DIR = 'data/datasets/curated/dataset_v1_yolov8'
 OUTPUT_FILE = 'reports/analysis_report.txt'
 
 def analyze_dataset():
