@@ -150,3 +150,34 @@ def delete_detection(detection_id: int):
     if not res.data:
         raise HTTPException(status_code=404, detail="Detection not found")
     return {"detail": "Detection deleted"}
+
+# -------------------------------
+# Procesar Video (con el modelo)
+# -------------------------------
+@app.post("/process-video/{video_id}")
+def process_video(video_id: int):
+    """
+    Procesar un video y generar detecciones usando el modelo entrenado.
+    """
+    # 1. Obtener metadatos del video desde la BD
+    video_res = supabase.table("videos").select("*").eq("id", video_id).execute()
+    if not video_res.data:
+        raise HTTPException(status_code=404, detail="Video not found")
+    video = video_res.data[0]
+
+    # 2. Aquí se cargaría el modelo entrenado
+    # Ejemplo:
+    # import pickle
+    # with open("ruta_al_modelo.pkl", "rb") as f:
+    #     model = pickle.load(f)
+
+    # 3. Aquí iría la lógica de detección en frames del video
+    # detections = model.detect(video["path"])
+    # for det in detections:
+    #     supabase.table("detections").insert({...}).execute()
+
+    return {
+        "status": "processing_started",
+        "video_id": video_id,
+        "filename": video["filename"]
+    }
