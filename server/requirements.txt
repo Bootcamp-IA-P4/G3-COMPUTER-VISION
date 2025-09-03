@@ -3,3 +3,9 @@ uvicorn[standard]
 supabase
 python-dotenv
 pydantic
+torch
+torchvision
+ultralytics
+opencv-python
+requests
+yt-dlp
