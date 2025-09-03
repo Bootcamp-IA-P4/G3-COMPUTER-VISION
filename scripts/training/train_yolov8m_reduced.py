@@ -9,15 +9,21 @@ def main():
 
     # Ruta al archivo de configuración del dataset (data.yaml).
     # dataset_yaml_path = '/home/juandomingo/factoriaf5/mod03-projs/G3-COMPUTER-VISION/data/datasets/curated/dataset_v1_yolov8m_reduced/data.yaml'
-    # Ruta relativa al archivo de configuración del dataset (data.yaml) desde la raíz del proyecto.                    │
-    dataset_yaml_path = 'data/datasets/curated/dataset_v1_yolov8_reduced/data.yaml'   
-    
+    # Ruta relativa al archivo de configuración del dataset (data.yaml) desde la raíz del proyecto.
+    dataset_yaml_path = 'data/datasets/curated/dataset_v1_yolov8_reduced/data.yaml'
+
     # Parámetros de entrenamiento
     epochs = 80
     project_folder = 'training_results'
-    run_name = 'yolov8m_reduced_b2_w2_img416_80_epochs'
+    run_name = 'yolov8m_reduced_b8_w4_img640_80_epochs' # Nombre actualizado para reflejar los nuevos parámetros
 
     # --- Fin de la Configuración ---
+
+    # --- Verificación del Dataset ---
+    if not os.path.exists(dataset_yaml_path):
+        print(f"ERROR: El archivo data.yaml no se encontró en {dataset_yaml_path}.")
+        print("Asegúrate de que la ruta sea correcta y el archivo exista.")
+        return # Salir si el dataset no se encuentra
 
     print(f"Iniciando el entrenamiento del modelo '{model_name}' con el DATASET REDUCIDO...")
     print(f"Dataset: {dataset_yaml_path}")
@@ -35,10 +41,10 @@ def main():
         save_json=True,
         save_hybrid=True,
         plots=True,
-        # --- Optimizaciones para reducir consumo de memoria ---
-        batch=2,
-        workers=2,
-        imgsz=416
+        # --- Parámetros de rendimiento actualizados ---
+        batch=8,
+        workers=4,
+        imgsz=640
     )
 
     print("-" * 30)
