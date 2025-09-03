@@ -41,10 +41,14 @@ def main():
         save_json=True,
         save_hybrid=True,
         plots=True,
-        # --- Parámetros de rendimiento actualizados ---
+        # --- Parámetros de rendimiento y optimización ---
         batch=8,
         workers=4,
-        imgsz=640
+        imgsz=640,
+        patience=20, # Early stopping: detiene el entrenamiento si no hay mejora en 20 épocas
+        cache=True,  # Cachea las imágenes en RAM para acelerar la carga (si la RAM lo permite)
+        optimizer='AdamW', # Optimizador AdamW para una convergencia más estable
+        cos_lr=True, # Usa decaimiento de learning rate con coseno annealing
     )
 
     print("-" * 30)
