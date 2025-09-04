@@ -133,3 +133,8 @@ docker-compose.yml
 /data/datasets/curated/Dataset_final/
 Dataset_final.tar.gz
 reports/
+/BrandLogoDetection.v6i.yolov8
+/Dataset_final_final
+/logo_detect_v3.v1i.yolov8
+/merged_dataset
+/Prueba_1
