@@ -1,4 +1,4 @@
-#dev
+# dev
 __pycache__/
 *.py[cod]
 *$py.class
@@ -105,46 +105,18 @@ docker-compose.yml
 
 # VSCode
 .vscode/
+.idea/
 
 # Static files
 /static
 
-# Data files
-/data/videos
-/data/processed
-/data/processed_v2
-/data/processed_final/
-/data/dataset_for_training/
-/data/dataset_for_training_v2/
-/data/dataset_for_training_final_curated/
-/data/yolo_training_data/
-
-# Custom datasets from external sources (e.g., Roboflow)
-/data/datasets/
-
-# dataset_yolo
-/data/dataset_yolo/
-/data/dataset_yolo/images
-/data/dataset_yolo/labels
-
-
-# ML model training runs and results
-/runs/
-/BrandLogoDetector/
-
-# Model files
-/models/
-
-/Prueba_1
-#api
 # =============================================================================
-#  Gitignore for Python / Data Science / Computer Vision Projects
+# Gitignore for Python / Data Science / Computer Vision Projects
 # =============================================================================
 
 # 1. Python & Virtual Environments
 # -----------------------------------------------------------------------------
 # Ignore the virtual environment folder itself.
-# Replace .venv-proj12 with your specific venv name if it changes.
 .venv-proj12/
 .venv/
 venv/
@@ -171,21 +143,18 @@ var/
 
 # 2. Data Science & Machine Learning Artifacts (VERY IMPORTANT)
 # -----------------------------------------------------------------------------
-# Ignore datasets. Large data files should be managed with DVC or Git LFS.
-# Create a 'data/' folder for your datasets and it will be ignored.
-data/
-datasets/
-*.csv
-*.json
-*.xml
-*.jpg
-*.png
-*.mp4
+# Ignore all large data files and results
+/data/*
+/training_results/*
+/runs/*
+/Prueba_1
+/BrandLogoDetector/
 
-# Ignore trained models and weights. These are binary and often large.
-# Create a 'models/' or 'weights/' folder for them.
-models/
-weights/
+# Ignore specific model files
+/models/*
+/models/yolov8n.pt
+/models/yolov8m.pt
+/models/yolov8s.pt
 *.pt
 *.pth
 *.h5
@@ -200,13 +169,17 @@ logs/
 *.log
 *.tfevents.*
 
-# Ignore Jupyter Notebook checkpoints
-.ipynb_checkpoints
+# Explicitly un-ignore specific datasets and YAMLs
+!/data/datasets/
+/data/datasets/*
+!/data/datasets/**/*.yaml
+!**/.gitkeep
 
-# Ignore caches from tools like pytest, mypy, etc.
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
+# Ignore compressed dataset archives
+data/_archive/
+/Dataset_final/
+/data/datasets/curated/Dataset_final/
+reports/
 
 # 3. IDE & Editor Configuration
 # -----------------------------------------------------------------------------
@@ -236,4 +209,3 @@ Desktop.ini
 secrets.yml
 *.pem
 *.key
->>>>>>> feature/api-detect-image

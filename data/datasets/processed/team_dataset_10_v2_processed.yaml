@@ -1,0 +1,48 @@
+path: ../team_dataset_10_v2_processed
+train: ./
+val: ./
+names:
+  0: adidas
+  1: alfa-romeo
+  2: amazon
+  3: apple
+  4: audi
+  5: boca-juniors
+  6: budweiser
+  7: chevrolet
+  8: coca-cola
+  9: continental
+  10: converse
+  11: dodge
+  12: facebook
+  13: ferrari
+  14: fiat
+  15: ford
+  16: google
+  17: honda
+  18: hp
+  19: hyundai
+  20: instagram
+  21: intel
+  22: kfc
+  23: mazda
+  24: mercedes-benz
+  25: microsoft
+  26: mitsubishi
+  27: nestle
+  28: nike
+  29: nintendo
+  30: nissan
+  31: opel
+  32: peugeot
+  33: pirelli
+  34: puma
+  35: reebok
+  36: renault
+  37: samsung
+  38: skoda
+  39: sony
+  40: suzuki
+  41: toyota
+  42: volkswagen
+  43: volvo
