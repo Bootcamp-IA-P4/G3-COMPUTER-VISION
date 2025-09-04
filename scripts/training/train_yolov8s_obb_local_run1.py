@@ -14,7 +14,7 @@ Uso:
 1. Asegúrate de que el dataset esté descomprimido en la ruta especificada en la sección
    de configuración.
 2. Ejecuta el script desde la raíz del proyecto: 
-   python3 scripts/training/train_yolov8s_local_documented.py
+   python3 scripts/training/train_yolov8s_obb_local.py
 
 El script verificará la existencia del dataset, imprimirá la configuración utilizada,
 entrenará el modelo y guardará todos los resultados (pesos, gráficos, etc.) en la
