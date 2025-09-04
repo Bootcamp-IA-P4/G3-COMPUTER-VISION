@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+# dev
 __pycache__/
 *.py[cod]
 *$py.class
@@ -105,38 +105,107 @@ docker-compose.yml
 
 # VSCode
 .vscode/
+.idea/
 
 # Static files
 /static
 
-#=========================================
-# Project Data, Models, and Results
-#=========================================
+# =============================================================================
+# Gitignore for Python / Data Science / Computer Vision Projects
+# =============================================================================
+
+# 1. Python & Virtual Environments
+# -----------------------------------------------------------------------------
+# Ignore the virtual environment folder itself.
+.venv-proj12/
+.venv/
+venv/
+env/
+ENV/
+
+# Ignore Python bytecode and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore distribution/build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+develop-eggs/
+parts/
+sdist/
+var/
+
+# 2. Data Science & Machine Learning Artifacts (VERY IMPORTANT)
+# -----------------------------------------------------------------------------
 # Ignore all large data files and results
 /data/*
 /training_results/*
+/runs/*
+/Prueba_1
+/BrandLogoDetector/
+
+# Ignore specific model files
 /models/*
 /models/yolov8n.pt
 /models/yolov8m.pt
 /models/yolov8s.pt
-/runs/*
+*.pt
+*.pth
+*.h5
+*.onnx
+*.pb
+*.tflite
 
-# Explicitly un-ignore the datasets directory itself
+# Ignore output files, logs, and reports
+results/
+output/
+logs/
+*.log
+*.tfevents.*
+
+# Explicitly un-ignore specific datasets and YAMLs
 !/data/datasets/
-
-# Now, ignore everything inside datasets, EXCEPT for YAML files
 /data/datasets/*
 !/data/datasets/**/*.yaml
-
-# Keep .gitkeep files everywhere
 !**/.gitkeep
 
-# Explicitly un-ignore specific final datasets
+# Ignore compressed dataset archives
+data/_archive/
 /Dataset_final/
 /data/datasets/curated/Dataset_final/
 reports/
 
-# Ignore compressed dataset archives
-data/_archive/
-# Ignore models
-*.pt
+# 3. IDE & Editor Configuration
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 4. Operating System Files
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 5. Other
+# -----------------------------------------------------------------------------
+# Ignore local environment variables file
+.env
+
+# Ignore secrets and credentials
+secrets.yml
+*.pem
+*.key

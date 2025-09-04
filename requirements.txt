@@ -20,6 +20,7 @@ certifi==2025.8.3
 cffi==1.17.1
 charset-normalizer==3.4.3
 click==8.2.1
+colorama==0.4.6
 comm==0.2.3
 contourpy==1.3.3
 cycler==0.12.1
@@ -79,7 +80,7 @@ nbformat==5.10.4
 nest-asyncio==1.6.0
 networkx==3.5
 notebook-shim==0.2.4
-numpy==2.2.6
+numpy==2.3.2
 nvidia-cublas-cu12==12.8.4.1
 nvidia-cuda-cupti-cu12==12.8.90
 nvidia-cuda-nvrtc-cu12==12.8.93
@@ -97,6 +98,7 @@ nvidia-nvtx-cu12==12.8.90
 opencv-python==4.12.0.88
 opencv-python-headless==4.10.0.84
 openpyxl==3.1.5
+outcome==1.3.0.post0
 packaging==25.0
 pandas==2.3.2
 pandocfilters==1.5.1
@@ -127,6 +129,7 @@ pyproject-hooks==1.2.0
 pyqt5==5.15.11
 pyqt5-qt5==5.15.17
 pyqt5-sip==12.17.0
+PySocks==1.7.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 python-json-logger==3.3.0
@@ -143,12 +146,14 @@ rfc3987-syntax==1.1.0
 roboflow==1.2.6
 rpds-py==0.27.0
 scipy==1.16.1
+selenium==4.35.0
 send2trash==1.8.3
 setuptools==80.9.0
 six==1.17.0
 smmap==5.0.2
 sniffio==1.3.1
-soupsieve==2.7
+sortedcontainers==2.4.0
+soupsieve==2.8
 stack-data==0.6.3
 starlette==0.47.3
 streamlit==1.48.1
@@ -162,6 +167,8 @@ torchvision==0.23.0
 tornado==6.5.2
 tqdm==4.67.1
 traitlets==5.14.3
+trio==0.30.0
+trio-websocket==0.12.2
 triton==3.4.0
 types-python-dateutil==2.9.0.20250822
 typing-extensions==4.14.1
@@ -176,9 +183,11 @@ uvloop==0.21.0
 watchdog==6.0.0
 watchfiles==1.1.0
 wcwidth==0.2.13
+webdriver-manager==4.0.2
 webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 websockets==15.0.1
 wheel==0.45.1
+wsproto==1.2.0
 yarl==1.20.1
