@@ -49,7 +49,7 @@ def main():
     # Carpeta principal donde se guardarán todos los resultados de los entrenamientos.
     project_folder = 'training_results'
     # Nombre específico para la carpeta de este entrenamiento. Ayuda a identificarlo.
-    run_name = 'yolov8s_obb_local_b4_w4_img640_ep80_run_1'
+    run_name = 'yolov8s_obb_b4_w4_img640_ep80_local_run_2'
 
     # --- Parámetros de Rendimiento para CPU ---
     # Es crucial ajustar estos valores para un entorno sin GPU dedicada.
@@ -101,7 +101,7 @@ def main():
     print(f"Dataset encontrado en: {dataset_yaml_path}")
 
     # --- Resumen de la Configuración ---
-    print("\n--- Iniciando Entrenamiento Local en CPU ---")
+    print("\n--- Iniht5EpOyaQ2mGDxLfS*2509ciando Entrenamiento Local en CPU ---")
     print(f"  - Modelo: '{model_name}'")
     print(f"  - Dataset: {dataset_yaml_path}")
     print(f"  - Épocas: {epochs}")
