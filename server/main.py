@@ -25,7 +25,7 @@ logger = logging.getLogger("logo_backend")
 supabase = get_supabase()
 
 # ------------------------------
-# Carpetas de uploads
+# Carpetas de uploads (backup local)
 # ------------------------------
 UPLOADS_DIR = "uploads"
 os.makedirs(UPLOADS_DIR, exist_ok=True)
@@ -176,22 +176,19 @@ def process_video_url(data: VideoURL):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"No se pudo descargar el video: {e}")
 
-    # Subir a Supabase Storage
-    storage = supabase.storage.from_("videos")
+    # Subir a Supabase Storage (bucket videos)
     try:
-        # Comprobar si el archivo ya existe
-        existing_files = storage.list()
-        if filename in [f["name"] for f in existing_files]:
-            storage.remove([filename])
         with open(local_path, "rb") as f:
-            storage.upload(filename, f, {"cacheControl": "3600"})
+            supabase.storage.from_("videos").upload(filename, f)
+        video_storage_path = filename
     except Exception as e:
-        logger.warning(f"No se pudo subir a Storage: {e}")
+        logger.warning(f"No se pudo subir video a Storage: {e}")
+        video_storage_path = local_path
 
     # Guardar vídeo en BD
     video_res = supabase.table("videos").insert({
         "filename": filename,
-        "path": local_path,
+        "path": video_storage_path,
         "url": video_url
     }).execute()
     video_id = video_res.data[0]["id"]
@@ -222,11 +219,20 @@ def process_video_url(data: VideoURL):
                 label = res.names[int(box.cls[0])]
                 confidence = float(box.conf[0])
 
-                # Guardar crop
+                # Guardar crop local
                 crop = frame[y1:y2, x1:x2]
                 crop_filename = f"{hashlib.md5(f'{video_id}_{frame_idx}_{label}'.encode()).hexdigest()}.jpg"
                 crop_path = os.path.join(UPLOADS_DIR, "crops", crop_filename)
                 cv2.imwrite(crop_path, crop)
+
+                # Subir crop al bucket "crops"
+                try:
+                    with open(crop_path, "rb") as f:
+                        supabase.storage.from_("crops").upload(crop_filename, f)
+                    crop_storage_path = crop_filename
+                except Exception as e:
+                    logger.warning(f"No se pudo subir crop a Storage: {e}")
+                    crop_storage_path = crop_path  # fallback local
 
                 # Mapear label → brand_id
                 brand_res = supabase.table("brands").select("*").eq("name", label).execute()
@@ -243,7 +249,7 @@ def process_video_url(data: VideoURL):
                     "start_time": frame_idx / fps,
                     "end_time": frame_idx / fps,
                     "confidence": confidence,
-                    "bbox_image_path": crop_path
+                    "bbox_image_path": crop_storage_path
                 }
                 supabase.table("detections").insert(det_data).execute()
 
