@@ -45,9 +45,7 @@ datasets/
 
 # Ignore trained models and weights. These are binary and often large.
 # Create a 'models/' or 'weights/' folder for them.
-models/
 weights/
-*.pt
 *.pth
 *.h5
 *.onnx
