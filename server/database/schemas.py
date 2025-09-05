@@ -15,7 +15,7 @@ class Brand(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # -------------------------------
 # Esquemas de Videos
@@ -41,7 +41,7 @@ class Video(BaseModel):
     duration: Optional[float]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # -------------------------------
 # Esquemas de Detections
@@ -70,4 +70,4 @@ class Detection(BaseModel):
     bbox_image_path: Optional[str]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
