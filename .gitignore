@@ -143,6 +143,7 @@ var/
 
 # 2. Data Science & Machine Learning Artifacts (VERY IMPORTANT)
 # -----------------------------------------------------------------------------
+
 # Ignore all large data files and results
 /data/*
 /training_results/*
@@ -156,6 +157,20 @@ var/
 /models/yolov8m.pt
 /models/yolov8s.pt
 *.pt
+# Ignore datasets. Large data files should be managed with DVC or Git LFS.
+# Create a 'data/' folder for your datasets and it will be ignored.
+data/
+datasets/
+*.csv
+*.json
+*.xml
+*.jpg
+*.png
+*.mp4
+
+# Ignore trained models and weights. These are binary and often large.
+# Create a 'models/' or 'weights/' folder for them.
+weights/
 *.pth
 *.h5
 *.onnx

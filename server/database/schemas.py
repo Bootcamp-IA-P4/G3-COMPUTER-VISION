@@ -1,45 +1,51 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 from typing import Optional
 
-# Para crear o actualizar marcas
+# -------------------------------
+# Esquemas de Brands
+# -------------------------------
 class BrandCreate(BaseModel):
     name: str
 
 class BrandUpdate(BaseModel):
     name: Optional[str]
 
-# Para devolver marcas desde la base de datos
 class Brand(BaseModel):
     id: int
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-# ---- Esquemas de Videos ----
-
+# -------------------------------
+# Esquemas de Videos
+# -------------------------------
 class VideoCreate(BaseModel):
     filename: str
-    path: Optional[str] = None
+    path: Optional[str] = None  # Para ruta local si se descarga
+    url: Optional[HttpUrl] = None  # Nueva opción: URL del video
     duration: Optional[float] = None  # en segundos
 
 class VideoUpdate(BaseModel):
     filename: Optional[str] = None
     path: Optional[str] = None
+    url: Optional[HttpUrl] = None
     duration: Optional[float] = None
 
 class Video(BaseModel):
     id: int
     filename: str
     path: Optional[str]
+    url: Optional[HttpUrl] = None
     uploaded_at: Optional[str]
     duration: Optional[float]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-# ---- Esquemas de Detections ----
-
+# -------------------------------
+# Esquemas de Detections
+# -------------------------------
 class DetectionCreate(BaseModel):
     video_id: int
     brand_id: int
@@ -64,4 +70,4 @@ class Detection(BaseModel):
     bbox_image_path: Optional[str]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
