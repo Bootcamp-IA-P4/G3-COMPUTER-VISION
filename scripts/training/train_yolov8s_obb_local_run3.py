@@ -35,8 +35,8 @@ def main():
     dataset_yaml_path = os.path.join('data', 'datasets', 'curated', 'dataset_v2_yolov8_obb', 'data.yaml')
 
     # --- Parámetros de Entrenamiento ---
-    epochs = 25
-    img_size = 320
+    epochs = 50
+    img_size = 416
 
     # --- Rutas de Salida ---
     project_folder = 'training_results'
