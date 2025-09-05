@@ -1,0 +1,97 @@
+# =============================================================================
+#  Gitignore for Python / Data Science / Computer Vision Projects
+# =============================================================================
+
+# 1. Python & Virtual Environments
+# -----------------------------------------------------------------------------
+# Ignore the virtual environment folder itself.
+# Replace .venv-proj12 with your specific venv name if it changes.
+.venv-proj12/
+.venv/
+venv/
+env/
+ENV/
+
+# Ignore Python bytecode and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore distribution/build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+develop-eggs/
+parts/
+sdist/
+var/
+
+# 2. Data Science & Machine Learning Artifacts (VERY IMPORTANT)
+# -----------------------------------------------------------------------------
+# Ignore datasets. Large data files should be managed with DVC or Git LFS.
+# Create a 'data/' folder for your datasets and it will be ignored.
+data/
+datasets/
+*.csv
+*.json
+*.xml
+*.jpg
+*.png
+*.mp4
+
+# Ignore trained models and weights. These are binary and often large.
+# Create a 'models/' or 'weights/' folder for them.
+weights/
+*.pth
+*.h5
+*.onnx
+*.pb
+*.tflite
+
+# Ignore output files, logs, and reports
+results/
+output/
+logs/
+*.log
+*.tfevents.*
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore caches from tools like pytest, mypy, etc.
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 3. IDE & Editor Configuration
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 4. Operating System Files
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 5. Other
+# -----------------------------------------------------------------------------
+# Ignore local environment variables file
+.env
+
+# Ignore secrets and credentials
+secrets.yml
+*.pem
+*.key
